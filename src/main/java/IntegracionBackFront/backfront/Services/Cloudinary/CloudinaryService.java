@@ -46,7 +46,7 @@ public class CloudinaryService {
 
 
         //4 Extraer y validar la extension del archivo
-        String extension = originalFileName .substring(originalFileName.lastIndexOf(str:".")).toLowerCase();
+        String extension = originalFileName .substring(originalFileName.lastIndexOf(".")).toLowerCase();
         if(!Arrays.asList(ALLOWED_EXTENNSIONS).contains(extension)){
             throw  new IllegalArgumentException("Solo Se permite archivos JPG, JPEG, PNG");
         }
