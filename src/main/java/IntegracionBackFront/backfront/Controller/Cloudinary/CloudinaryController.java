@@ -21,6 +21,7 @@ public class CloudinaryController {
     public CloudinaryController(CloudinaryService service) {
         this.service = service;
     }
+
     @PostMapping("/upload")
     public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile file) {
         try {
@@ -31,6 +32,23 @@ public class CloudinaryController {
             ));
         } catch (IOException e) {
             return ResponseEntity.internalServerError().body("Error al subir la imagen");
+        }
+    }
+
+    @PostMapping("/upload-to-folder")
+    public ResponseEntity<?> uploadImageToFolder (
+            @RequestParam("image") MultipartFile file,
+            @RequestParam String folder
+    ){
+        try {
+            //Lo guardamos em esta variable
+            String imageUrl = service.uploadImage(file, folder);
+            return ResponseEntity.ok(Map.of(
+                    "message", "Imagen subida exitosamente",
+                    "url", imageUrl
+            ));
+        }catch (IOException e){
+            return ResponseEntity.internalServerError().body("Error al subir la imagem");
         }
     }
 }
